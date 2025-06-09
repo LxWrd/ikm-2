@@ -1,3 +1,5 @@
+import csv
+
 class Tree:
     """Структура дерева"""
     def __init__(self, value = 0):
@@ -40,7 +42,22 @@ class Tree:
             if self.right:
                 self.right.print_tree(level + 1, "R--- ")
 
-tree = Tree.build_tree([(11,'100'),
-                        (23,'1'),
-                        (45,'0000')])
-tree.print_tree()
+def file_reader():
+    """Выводит список с кортежами"""
+    file = open('file.csv', encoding='utf-8')
+    reader = csv.DictReader(file)
+    arr_for_data = []
+
+    for i in reader:
+        arr_for_data.append((i['Значение'],i['Путь']))
+    return arr_for_data
+
+def main():
+    data = file_reader()
+
+    tree = Tree.build_tree(data)
+
+    tree.print_tree()
+
+if __name__ == "__main__":
+    main()
