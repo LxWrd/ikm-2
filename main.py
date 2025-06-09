@@ -30,10 +30,17 @@ class Tree:
                 current.right = Tree(number)
 
         return head
-# Создаю дерево для проверки
+
+    def print_tree(self, level=0, prefix='Head - '):
+        """Выводит дерево в читаемом виде."""
+        if self is not None:
+            print(" " * (level * 4) + prefix + str(self.value))
+            if self.left:
+                self.left.print_tree(level + 1, "L--- ")
+            if self.right:
+                self.right.print_tree(level + 1, "R--- ")
+
 tree = Tree.build_tree([(11,'100'),
                         (23,'1'),
                         (45,'0000')])
-print(tree.value) # Вывод 0
-print(tree.right.value) # Вывод 23
-print(tree.left.left.left.left.value) # Вывод 45
+tree.print_tree()
